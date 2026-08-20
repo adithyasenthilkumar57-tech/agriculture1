@@ -1,6 +1,8 @@
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { FarmProvider } from '@/context/FarmContext';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { LanguageProvider } from '@/context/LanguageContext';
 import AppShell from '@/components/layout/AppShell';
 
 export const metadata = {
@@ -13,23 +15,26 @@ export const metadata = {
     'Farm Management',
     'Agricultural Transportation',
     'Kisan Logistics',
-    'Crop Health Screening',
     'Smart Farming India',
   ],
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </head>
-      <body className="antialiased font-sans bg-neutral-50 text-neutral-900 min-h-screen">
-        <AuthProvider>
-          <FarmProvider>
-            <AppShell>{children}</AppShell>
-          </FarmProvider>
-        </AuthProvider>
+      <body className="antialiased font-sans min-h-screen">
+        <ThemeProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <FarmProvider>
+                <AppShell>{children}</AppShell>
+              </FarmProvider>
+            </AuthProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

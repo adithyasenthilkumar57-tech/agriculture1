@@ -3,23 +3,25 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function BottomNav() {
   const pathname = usePathname();
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   if (!user) return null;
 
   const items = [
-    { href: '/dashboard', label: 'Agriculture', icon: '🌾' },
-    { href: '/transport', label: 'Transport', icon: '🚜' },
-    { href: '/ai', label: 'AI Assistant', icon: '🤖' },
-    { href: '/marketplace', label: 'Market', icon: '🏪' },
-    { href: '/profile', label: 'Profile', icon: '👤' },
+    { href: '/dashboard', label: t('agriculture'), icon: '🌾' },
+    { href: '/transport', label: t('transport'), icon: '🚜' },
+    { href: '/ai', label: t('aiAssistant'), icon: '🤖' },
+    { href: '/marketplace', label: t('marketplace'), icon: '🏪' },
+    { href: '/profile', label: t('profile'), icon: '👤' },
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-neutral-200 z-40 flex items-center justify-around py-1.5 px-2 safe-area-pb shadow-lg">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-neutral-200 z-40 flex items-center justify-around py-1.5 px-2 safe-area-pb shadow-lg transition-colors">
       {items.map((item) => {
         const isActive =
           item.href === '/dashboard'
@@ -35,7 +37,7 @@ export default function BottomNav() {
             }`}
           >
             <span className="text-xl mb-0.5">{item.icon}</span>
-            <span className="text-[10px] tracking-tight">{item.label}</span>
+            <span className="text-[10px] tracking-tight truncate max-w-[60px]">{item.label}</span>
           </Link>
         );
       })}

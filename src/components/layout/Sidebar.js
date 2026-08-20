@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useFarm } from '@/context/FarmContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();
   const { farms, activeFarm, setActiveFarm } = useFarm();
+  const { t, language } = useLanguage();
 
   if (!user) return null;
 
@@ -18,23 +20,23 @@ export default function Sidebar() {
 
   const navLinks = [
     {
-      section: 'Core Pillars',
+      section: language === 'ta' ? 'முக்கிய தூண்கள்' : 'Core Pillars',
       links: [
-        { href: '/dashboard', label: '🌾 Agriculture Dashboard', exact: true },
-        { href: '/transport', label: '🚜 Agricultural Transport' },
-        { href: '/ai', label: '🤖 AgriMitra AI Chatbot' },
+        { href: '/dashboard', label: `🌾 ${t('dashboard')}`, exact: true },
+        { href: '/transport', label: `🚜 ${t('transport')}` },
+        { href: '/ai', label: `🤖 ${t('aiAssistant')}` },
       ],
     },
     ...(isFarmer || isAdmin
       ? [
           {
-            section: 'Farm Management',
+            section: language === 'ta' ? 'பண்ணை மேலாண்மை' : 'Farm Management',
             links: [
-              { href: '/farms', label: '🏡 My Farms' },
-              { href: '/crops', label: '🌱 Crops & Timeline' },
-              { href: '/soil', label: '🧪 Soil Health' },
-              { href: '/weather', label: '🌤️ Weather Intelligence' },
-              { href: '/tasks', label: '📋 Farming Tasks' },
+              { href: '/farms', label: `🏡 ${t('myFarms')}` },
+              { href: '/crops', label: `🌱 ${t('crops')}` },
+              { href: '/soil', label: `🧪 ${t('soilHealth')}` },
+              { href: '/weather', label: `🌤️ ${t('weather')}` },
+              { href: '/tasks', label: `📋 ${t('tasks')}` },
             ],
           },
         ]
@@ -42,39 +44,39 @@ export default function Sidebar() {
     ...(isTransporter || isAdmin
       ? [
           {
-            section: 'Transporter Hub',
+            section: language === 'ta' ? 'போக்குவரத்து மையம்' : 'Transporter Hub',
             links: [
-              { href: '/transport/transporter', label: '🚚 Transporter Dashboard' },
-              { href: '/transport/vehicles', label: '🚛 My Vehicles' },
+              { href: '/transport/transporter', label: `🚚 ${t('transporterHub')}` },
+              { href: '/transport/vehicles', label: `🚛 ${t('myVehicles')}` },
             ],
           },
         ]
       : []),
     {
-      section: 'Market & Network',
+      section: language === 'ta' ? 'சந்தை & நெட்வொர்க்' : 'Market & Network',
       links: [
-        { href: '/marketplace', label: '🏪 Agricultural Market' },
-        { href: '/notifications', label: '🔔 Notifications' },
-        { href: '/profile', label: '👤 Profile & Settings' },
+        { href: '/marketplace', label: `🏪 ${t('marketplace')}` },
+        { href: '/notifications', label: `🔔 ${t('notifications')}` },
+        { href: '/profile', label: `👤 ${t('profile')}` },
       ],
     },
     ...(isAdmin
       ? [
           {
-            section: 'Administration',
-            links: [{ href: '/admin', label: '⚙️ Admin Control Panel' }],
+            section: language === 'ta' ? 'நிர்வாகம்' : 'Administration',
+            links: [{ href: '/admin', label: `⚙️ ${t('adminPanel')}` }],
           },
         ]
       : []),
   ];
 
   return (
-    <aside className="hidden md:flex flex-col w-64 fixed top-16 bottom-0 left-0 bg-white border-r border-neutral-100 overflow-y-auto p-3 z-20">
+    <aside className="hidden md:flex flex-col w-64 fixed top-16 bottom-0 left-0 bg-white border-r border-neutral-100 overflow-y-auto p-3 z-20 transition-colors">
       {/* Active Farm Selector (for Farmers) */}
       {isFarmer && farms.length > 0 && (
         <div className="mb-4 p-2.5 bg-primary-50/60 rounded-xl border border-primary-100">
           <label className="block text-[11px] font-bold uppercase tracking-wider text-primary-800 mb-1">
-            Active Farm Context
+            {t('activeFarmContext')}
           </label>
           <select
             value={activeFarm?._id || ''}
@@ -82,7 +84,7 @@ export default function Sidebar() {
               const selected = farms.find((f) => f._id === e.target.value);
               if (selected) setActiveFarm(selected);
             }}
-            aria-label="Active Farm Context"
+            aria-label={t('activeFarmContext')}
             className="w-full text-xs font-semibold bg-white border border-primary-200 rounded-lg p-1.5 text-neutral-800 outline-none focus:ring-2 focus:ring-primary-500"
           >
             {farms.map((f) => (
@@ -129,7 +131,7 @@ export default function Sidebar() {
       {/* Footer Tagline */}
       <div className="pt-3 border-t border-neutral-100 text-center">
         <p className="text-[10px] text-neutral-400 font-medium">
-          AgriMitra AI • v1.0.0
+          {t('appName')} • v1.0.0
         </p>
       </div>
     </aside>
