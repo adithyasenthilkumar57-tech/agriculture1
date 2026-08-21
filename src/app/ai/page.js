@@ -25,22 +25,18 @@ function AIChatbotInner() {
     {
       title: 'Crop Yellowing Assessment',
       prompt: 'My tomato crop leaves are turning yellow from the bottom. What should I check regarding nutrients and irrigation?',
-      emoji: '🌿',
     },
     {
       title: 'Harvest Transport Planning',
       prompt: 'I have harvested 2 tonnes of vegetables and need to transport them to the nearest mandi. What vehicle and logistics steps are recommended?',
-      emoji: '🚜',
     },
     {
       title: 'Spraying Window Guidance',
       prompt: 'How do current weather conditions affect pesticide spraying and fertilizer application timing?',
-      emoji: '🌤️',
     },
     {
       title: 'Soil Health Improvement',
       prompt: 'Based on a loamy soil with pH 6.8, what are the best organic practices to increase organic carbon and water retention?',
-      emoji: '🧪',
     },
   ];
 
@@ -177,14 +173,14 @@ function AIChatbotInner() {
           onClick={handleNewChat}
           className="btn btn-ai btn-sm w-full text-xs font-bold shadow-xs flex items-center justify-center gap-1.5"
         >
-          <span>✨</span> New Conversation
+          New Conversation
         </button>
 
         {/* Farm Context Selector Card */}
         <div className="p-2.5 rounded-xl bg-ai-50/60 border border-ai-200 text-xs space-y-1.5">
           <div className="flex items-center justify-between">
             <span className="font-bold text-ai-900 text-[11px] flex items-center gap-1">
-              <span>🌾</span> Use Farm Context
+              Use Farm Context
             </span>
             <input
               type="checkbox"
@@ -218,7 +214,7 @@ function AIChatbotInner() {
                     : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
                 }`}
               >
-                <span className="truncate flex-1 pr-1">💬 {conv.title}</span>
+                <span className="truncate flex-1 pr-1">{conv.title}</span>
                 <button
                   onClick={(e) => handleDeleteConversation(conv._id, e)}
                   className="opacity-0 group-hover:opacity-100 text-neutral-400 hover:text-red-600 p-0.5 text-xs transition-opacity"
@@ -242,7 +238,7 @@ function AIChatbotInner() {
         <div className="p-3.5 border-b border-neutral-100 flex items-center justify-between bg-white/80 backdrop-blur-xs">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-ai-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-              🤖
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
             </div>
             <div>
               <h2 className="font-bold text-sm text-neutral-900 font-display leading-tight">
@@ -279,8 +275,8 @@ function AIChatbotInner() {
         <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-neutral-50/40">
           {messages.length === 0 ? (
             <div className="max-w-xl mx-auto py-8 text-center space-y-6">
-              <div className="w-16 h-16 rounded-3xl bg-ai-100 flex items-center justify-center text-3xl mx-auto shadow-xs">
-                🌾
+              <div className="w-16 h-16 rounded-3xl bg-ai-100 flex items-center justify-center mx-auto shadow-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-ai-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
               </div>
 
               <div>
@@ -305,7 +301,6 @@ function AIChatbotInner() {
                       className="p-3 rounded-xl bg-white border border-neutral-200/80 hover:border-ai-400 hover:shadow-xs text-left transition-all group"
                     >
                       <div className="font-bold text-xs text-neutral-900 group-hover:text-ai-700 flex items-center gap-1.5 mb-1">
-                        <span>{s.emoji}</span>
                         <span>{s.title}</span>
                       </div>
                       <p className="text-[11px] text-neutral-500 line-clamp-2 leading-relaxed">
@@ -337,7 +332,6 @@ function AIChatbotInner() {
                     {/* Source Status Transparency Badge */}
                     {!isUser && msg.sourceStatus && (
                       <div className="mt-2 pt-2 border-t border-neutral-100 text-[10px] text-neutral-400 flex items-center gap-1.5">
-                        <span>🛡️</span>
                         <span>
                           {msg.sourceStatus === 'user_data'
                             ? 'Answer enhanced with your active farm profile'
@@ -401,7 +395,7 @@ function AIChatbotInner() {
               disabled={loading || !inputMessage.trim()}
               className="btn btn-ai btn-sm px-4 py-2 text-xs font-bold"
             >
-              {loading ? '...' : 'Send 🚀'}
+              {loading ? '...' : 'Send'}
             </button>
           </form>
         </div>

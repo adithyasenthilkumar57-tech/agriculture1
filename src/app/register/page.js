@@ -61,7 +61,9 @@ export default function RegisterPage() {
     <div className="max-w-xl mx-auto my-6 px-4">
       <div className="card p-8 shadow-md">
         <div className="text-center mb-6">
-          <div className="text-4xl mb-2">🌾</div>
+          <div className="w-12 h-12 rounded-2xl bg-primary-100 flex items-center justify-center mx-auto mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          </div>
           <h1 className="text-2xl font-bold font-display text-neutral-900">Create AgriMitra Account</h1>
           <p className="text-xs text-neutral-500 mt-1">
             Join the connected ecosystem for farmers, transporters & buyers
@@ -80,10 +82,10 @@ export default function RegisterPage() {
             <label className="label label-required text-xs">Select Your Role</label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { id: 'farmer', label: 'Farmer', icon: '🌾' },
-                { id: 'transporter', label: 'Transporter', icon: '🚜' },
-                { id: 'buyer', label: 'Buyer', icon: '🏪' },
-                { id: 'expert', label: 'Expert', icon: '👨‍🔬' },
+                { id: 'farmer', label: 'Farmer' },
+                { id: 'transporter', label: 'Transporter' },
+                { id: 'buyer', label: 'Buyer' },
+                { id: 'expert', label: 'Expert' },
               ].map((roleOption) => (
                 <button
                   type="button"
@@ -95,8 +97,7 @@ export default function RegisterPage() {
                       : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'
                   }`}
                 >
-                  <span className="text-xl">{roleOption.icon}</span>
-                  <span className="text-xs">{roleOption.label}</span>
+                  <span className="text-xs font-bold">{roleOption.label}</span>
                 </button>
               ))}
             </div>
@@ -193,7 +194,7 @@ export default function RegisterPage() {
             disabled={loading}
             className="btn btn-primary w-full py-2.5 text-sm font-bold shadow-md mt-2"
           >
-            {loading ? 'Creating Account...' : 'Complete Registration 🚀'}
+            {loading ? 'Creating Account...' : 'Complete Registration'}
           </button>
         </form>
 

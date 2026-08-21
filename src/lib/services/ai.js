@@ -1,12 +1,14 @@
 /**
- * AgriMitra AI — AI Service Layer
- * Abstracts the AI provider so the chatbot UI never changes when switching providers.
- * Reads: AI_API_KEY, AI_API_URL, AI_MODEL
+ * AgriMitra AI — AI Service Layer (Google Gemini)
+ * Single API key powers all AI features on the platform.
+ * Key: AI_API_KEY  |  Model: AI_MODEL (default: gemini-1.5-flash)
  */
 
 const AI_API_KEY = process.env.AI_API_KEY;
-const AI_API_URL = process.env.AI_API_URL || 'https://api.openai.com/v1';
-const AI_MODEL = process.env.AI_MODEL || 'gpt-4o-mini';
+const AI_MODEL = process.env.AI_MODEL || 'gemini-1.5-flash';
+
+// Gemini REST endpoint (no SDK needed — pure fetch)
+const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 export function isAIConfigured() {
   return Boolean(AI_API_KEY);
@@ -20,7 +22,9 @@ export function buildSystemPrompt(farmContext = null) {
   if (farmContext?.enabled && farmContext.snapshotData) {
     const d = farmContext.snapshotData;
     context = `
-\n---\n**Farmer's Active Farm Context (shared with permission):**
+
+---
+**Farmer's Active Farm Context (shared with permission):**
 - Farm: ${d.farmName || 'Not specified'}
 - Location: ${d.location || 'Not specified'}
 - Soil Type: ${d.soilType || 'Not specified'}
@@ -53,62 +57,112 @@ ${context}`;
 }
 
 /**
- * Send a chat message to the AI provider.
+ * Convert OpenAI-style message array to Gemini's contents format.
+ * Gemini uses: { role: 'user'|'model', parts: [{ text }] }
+ * System prompt is injected as the first user turn.
+ */
+function toGeminiContents(systemPrompt, messages) {
+  const contents = [];
+
+  // Inject system prompt as opening user message (Gemini doesn't have a system role)
+  contents.push({
+    role: 'user',
+    parts: [{ text: systemPrompt }],
+  });
+  contents.push({
+    role: 'model',
+    parts: [{ text: 'Understood. I am AgriMitra AI Assistant, ready to help with agriculture and transport.' }],
+  });
+
+  // Add conversation history
+  for (const msg of messages) {
+    contents.push({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: msg.content }],
+    });
+  }
+
+  return contents;
+}
+
+/**
+ * Send a chat message to Google Gemini.
  * Returns { content, error, suggestedActions }
  */
 export async function sendChatMessage({ messages, farmContext = null }) {
   if (!isAIConfigured()) {
     return {
       content: null,
-      error: 'AI service is not configured. Please contact the platform administrator to set up the AI API key.',
+      error: 'AI service is not configured. Please add your Google Gemini API key to .env.local (AI_API_KEY).',
       suggestedActions: [],
     };
   }
 
   const systemPrompt = buildSystemPrompt(farmContext);
+  const contents = toGeminiContents(systemPrompt, messages);
 
-  const apiMessages = [
-    { role: 'system', content: systemPrompt },
-    ...messages.map((m) => ({ role: m.role, content: m.content })),
-  ];
+  const endpoint = `${GEMINI_BASE}/${AI_MODEL}:generateContent?key=${AI_API_KEY}`;
 
   try {
-    const response = await fetch(`${AI_API_URL}/chat/completions`, {
+    const response = await fetch(endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${AI_API_KEY}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: AI_MODEL,
-        messages: apiMessages,
-        max_tokens: 1024,
-        temperature: 0.7,
+        contents,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1024,
+          topP: 0.9,
+        },
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+        ],
       }),
     });
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error('[AI Service] API error:', response.status, errorBody);
-      return {
-        content: null,
-        error: 'AI service temporarily unavailable. Please try again.',
-        suggestedActions: [],
-      };
+      console.error('[AI Service] Gemini API error:', response.status, errorBody);
+
+      // Provide a helpful message for common errors
+      if (response.status === 400) {
+        return { content: null, error: 'Invalid request to Gemini API. Check your API key and model name.', suggestedActions: [] };
+      }
+      if (response.status === 403) {
+        return { content: null, error: 'Gemini API key is invalid or does not have permission. Check your key at https://aistudio.google.com/app/apikey', suggestedActions: [] };
+      }
+      if (response.status === 429) {
+        return { content: null, error: 'Gemini API rate limit reached. Please wait a moment and try again.', suggestedActions: [] };
+      }
+
+      return { content: null, error: 'AI service temporarily unavailable. Please try again.', suggestedActions: [] };
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || '';
 
-    // Simple transport intent detection for suggested actions
+    // Gemini response: data.candidates[0].content.parts[0].text
+    const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    if (!content) {
+      // Check for blocked content
+      const blockReason = data.candidates?.[0]?.finishReason;
+      if (blockReason === 'SAFETY') {
+        return { content: null, error: 'Response was blocked by safety filters. Please rephrase your question.', suggestedActions: [] };
+      }
+      return { content: null, error: 'No response received from AI. Please try again.', suggestedActions: [] };
+    }
+
     const suggestedActions = detectSuggestedActions(content, messages);
-
     return { content, error: null, suggestedActions };
+
   } catch (err) {
     console.error('[AI Service] Network error:', err.message);
     return {
       content: null,
-      error: 'AI service temporarily unavailable. Please check your connection and try again.',
+      error: 'Unable to reach Gemini AI. Please check your internet connection and try again.',
       suggestedActions: [],
     };
   }
@@ -123,19 +177,19 @@ function detectSuggestedActions(aiContent, messages) {
   const actions = [];
 
   if (combined.match(/transport|truck|vehicle|book.*transport|transport.*book/)) {
-    actions.push({ label: '🚜 Book Agricultural Transport', action: 'navigate', payload: { path: '/transport/book' } });
+    actions.push({ label: 'Book Agricultural Transport', action: 'navigate', payload: { path: '/transport/book' } });
   }
   if (combined.match(/crop health|disease|pest|yellowing|brown|spot|wilt/)) {
-    actions.push({ label: '🌾 Log Crop Observation', action: 'navigate', payload: { path: '/crops' } });
+    actions.push({ label: 'Log Crop Observation', action: 'navigate', payload: { path: '/crops' } });
   }
   if (combined.match(/expert|consult|professional|specialist/)) {
-    actions.push({ label: '👨‍🌾 Find Agriculture Expert', action: 'navigate', payload: { path: '/experts' } });
+    actions.push({ label: 'Find Agriculture Expert', action: 'navigate', payload: { path: '/experts' } });
   }
   if (combined.match(/weather|rain|temperature|forecast/)) {
-    actions.push({ label: '🌤 Check Weather', action: 'navigate', payload: { path: '/weather' } });
+    actions.push({ label: 'Check Weather', action: 'navigate', payload: { path: '/weather' } });
   }
   if (combined.match(/marketplace|sell|buyer|market price|listing/)) {
-    actions.push({ label: '🏪 View Marketplace', action: 'navigate', payload: { path: '/marketplace' } });
+    actions.push({ label: 'View Marketplace', action: 'navigate', payload: { path: '/marketplace' } });
   }
 
   return actions;

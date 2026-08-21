@@ -15,7 +15,7 @@ export default function HomePage() {
 
         <div className="max-w-3xl relative z-10 space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wide text-primary-200">
-            <span>✨</span> Next-Generation Rural AgriTech
+            Next-Generation Rural AgriTech
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-black font-display tracking-tight leading-tight">
@@ -32,12 +32,12 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center gap-3 pt-2">
             {user ? (
               <Link href="/dashboard" className="btn btn-primary btn-lg shadow-lg">
-                Go to Dashboard 🌾
+                Go to Dashboard
               </Link>
             ) : (
               <>
                 <Link href="/register" className="btn btn-primary btn-lg shadow-lg">
-                  Get Started Free 🚀
+                  Get Started Free
                 </Link>
                 <Link href="/login" className="btn btn-ghost text-white border-white/30 hover:bg-white/10 btn-lg">
                   Sign In
@@ -45,7 +45,7 @@ export default function HomePage() {
               </>
             )}
             <Link href="/ai" className="btn btn-ai btn-lg">
-              Ask AI Assistant 🤖
+              Ask AI Assistant
             </Link>
           </div>
 
@@ -81,8 +81,8 @@ export default function HomePage() {
           {/* Pillar 1: Agriculture */}
           <div className="card p-6 border-t-4 border-t-primary-500 flex flex-col justify-between hover:shadow-lg transition-all">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-primary-100 flex items-center justify-center text-2xl">
-                🌾
+              <div className="w-12 h-12 rounded-2xl bg-primary-100 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
               </div>
               <h3 className="text-xl font-bold font-display text-neutral-900">
                 1. Agriculture Ecosystem
@@ -112,8 +112,8 @@ export default function HomePage() {
           {/* Pillar 2: Transport */}
           <div className="card p-6 border-t-4 border-t-transport-500 flex flex-col justify-between hover:shadow-lg transition-all">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-transport-100 flex items-center justify-center text-2xl">
-                🚜
+              <div className="w-12 h-12 rounded-2xl bg-transport-100 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-transport-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8 17a2 2 0 100-4 2 2 0 000 4zm8 0a2 2 0 100-4 2 2 0 000 4zM3 7h3l2-4h8l2 4h3v6h-2m-2 0H7m-2 0H3V7z" /></svg>
               </div>
               <h3 className="text-xl font-bold font-display text-neutral-900">
                 2. Agricultural Logistics
@@ -143,8 +143,8 @@ export default function HomePage() {
           {/* Pillar 3: AI Assistant */}
           <div className="card p-6 border-t-4 border-t-ai-500 flex flex-col justify-between hover:shadow-lg transition-all">
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-ai-100 flex items-center justify-center text-2xl">
-                🤖
+              <div className="w-12 h-12 rounded-2xl bg-ai-100 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-ai-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 001.357 2.059l.96.38M14.25 3.104c.251.023.501.05.75.082M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25" /></svg>
               </div>
               <h3 className="text-xl font-bold font-display text-neutral-900">
                 3. AI Agriculture Assistant
@@ -230,7 +230,7 @@ export default function HomePage() {
       {/* Real Data Guarantee Banner */}
       <section className="bg-primary-50 rounded-2xl p-6 border border-primary-200 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="text-3xl">🛡️</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-primary-700 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
           <div>
             <h3 className="text-base font-bold text-primary-900 font-display">
               Real Data Guarantee — Zero Fake Records

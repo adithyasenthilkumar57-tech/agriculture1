@@ -22,9 +22,9 @@ export default function Sidebar() {
     {
       section: language === 'ta' ? 'முக்கிய தூண்கள்' : 'Core Pillars',
       links: [
-        { href: '/dashboard', label: `🌾 ${t('dashboard')}`, exact: true },
-        { href: '/transport', label: `🚜 ${t('transport')}` },
-        { href: '/ai', label: `🤖 ${t('aiAssistant')}` },
+        { href: '/dashboard', label: t('dashboard'), exact: true },
+        { href: '/transport', label: t('transport') },
+        { href: '/ai', label: t('aiAssistant') },
       ],
     },
     ...(isFarmer || isAdmin
@@ -32,11 +32,11 @@ export default function Sidebar() {
           {
             section: language === 'ta' ? 'பண்ணை மேலாண்மை' : 'Farm Management',
             links: [
-              { href: '/farms', label: `🏡 ${t('myFarms')}` },
-              { href: '/crops', label: `🌱 ${t('crops')}` },
-              { href: '/soil', label: `🧪 ${t('soilHealth')}` },
-              { href: '/weather', label: `🌤️ ${t('weather')}` },
-              { href: '/tasks', label: `📋 ${t('tasks')}` },
+              { href: '/farms', label: t('myFarms') },
+              { href: '/crops', label: t('crops') },
+              { href: '/soil', label: t('soilHealth') },
+              { href: '/weather', label: t('weather') },
+              { href: '/tasks', label: t('tasks') },
             ],
           },
         ]
@@ -46,8 +46,8 @@ export default function Sidebar() {
           {
             section: language === 'ta' ? 'போக்குவரத்து மையம்' : 'Transporter Hub',
             links: [
-              { href: '/transport/transporter', label: `🚚 ${t('transporterHub')}` },
-              { href: '/transport/vehicles', label: `🚛 ${t('myVehicles')}` },
+              { href: '/transport/transporter', label: t('transporterHub') },
+              { href: '/transport/vehicles', label: t('myVehicles') },
             ],
           },
         ]
@@ -55,16 +55,16 @@ export default function Sidebar() {
     {
       section: language === 'ta' ? 'சந்தை & நெட்வொர்க்' : 'Market & Network',
       links: [
-        { href: '/marketplace', label: `🏪 ${t('marketplace')}` },
-        { href: '/notifications', label: `🔔 ${t('notifications')}` },
-        { href: '/profile', label: `👤 ${t('profile')}` },
+        { href: '/marketplace', label: t('marketplace') },
+        { href: '/notifications', label: t('notifications') },
+        { href: '/profile', label: t('profile') },
       ],
     },
     ...(isAdmin
       ? [
           {
             section: language === 'ta' ? 'நிர்வாகம்' : 'Administration',
-            links: [{ href: '/admin', label: `⚙️ ${t('adminPanel')}` }],
+            links: [{ href: '/admin', label: t('adminPanel') }],
           },
         ]
       : []),

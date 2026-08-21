@@ -80,7 +80,7 @@ export default function DashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-neutral-200">
         <div>
           <h1 className="text-2xl font-bold font-display text-neutral-900">
-            🌾 Welcome, {user?.name || 'Farmer'}
+            Welcome, {user?.name || 'Farmer'}
           </h1>
           <p className="text-xs text-neutral-500 mt-0.5">
             {activeFarm
@@ -94,10 +94,10 @@ export default function DashboardPage() {
             + Add Crop
           </Link>
           <Link href="/transport/book" className="btn btn-transport btn-sm text-xs">
-            🚜 Book Transport
+            Book Transport
           </Link>
           <Link href="/ai" className="btn btn-ai btn-sm text-xs">
-            🤖 Ask AI
+            Ask AI
           </Link>
         </div>
       </div>
@@ -109,7 +109,9 @@ export default function DashboardPage() {
           href="/farms"
           className="card card-agriculture p-4 hover:shadow-md transition-all flex items-center gap-3 bg-linear-to-r from-primary-50/50 to-white"
         >
-          <div className="text-3xl">🌾</div>
+          <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+          </div>
           <div className="flex-1">
             <h3 className="font-bold text-sm text-neutral-900 font-display">Agriculture</h3>
             <p className="text-xs text-neutral-500">
@@ -124,7 +126,9 @@ export default function DashboardPage() {
           href="/transport"
           className="card card-transport p-4 hover:shadow-md transition-all flex items-center gap-3 bg-linear-to-r from-transport-50/50 to-white"
         >
-          <div className="text-3xl">🚜</div>
+          <div className="w-10 h-10 rounded-xl bg-transport-100 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-transport-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8 17a2 2 0 100-4 2 2 0 000 4zm8 0a2 2 0 100-4 2 2 0 000 4zM3 7h3l2-4h8l2 4h3v6h-2m-2 0H7m-2 0H3V7z" /></svg>
+          </div>
           <div className="flex-1">
             <h3 className="font-bold text-sm text-neutral-900 font-display">Agricultural Transport</h3>
             <p className="text-xs text-neutral-500">
@@ -139,7 +143,9 @@ export default function DashboardPage() {
           href="/ai"
           className="card card-ai p-4 hover:shadow-md transition-all flex items-center gap-3 bg-linear-to-r from-ai-50/50 to-white"
         >
-          <div className="text-3xl">🤖</div>
+          <div className="w-10 h-10 rounded-xl bg-ai-100 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-ai-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+          </div>
           <div className="flex-1">
             <h3 className="font-bold text-sm text-neutral-900 font-display">AgriMitra AI Assistant</h3>
             <p className="text-xs text-neutral-500">Contextual farm & logistics advice</p>
@@ -155,7 +161,7 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-bold font-display text-sm text-neutral-900 flex items-center gap-1.5">
-                <span>🌤️</span> Weather Intelligence
+                Weather Intelligence
               </h3>
               {weather?.available && (
                 <SourceLabel source="Open-Meteo" updated="Live" status="live" />
@@ -206,7 +212,7 @@ export default function DashboardPage() {
                         key={idx}
                         className="text-[11px] p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 font-medium flex items-start gap-1.5"
                       >
-                        <span>⚠️</span>
+                        <span>Warning</span>
                         <span>{alert.message}</span>
                       </div>
                     ))}
@@ -215,7 +221,7 @@ export default function DashboardPage() {
               </div>
             ) : (
               <div className="text-center py-6 text-neutral-400 text-xs">
-                <span className="text-2xl block mb-1">📡</span>
+                <span className="text-2xl block mb-1">--</span>
                 Live weather data unavailable.
               </div>
             )}
@@ -232,7 +238,7 @@ export default function DashboardPage() {
         <div className="card p-5 lg:col-span-2">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold font-display text-sm text-neutral-900 flex items-center gap-1.5">
-              <span>🌱</span> Current Crops & Lifecycle
+              Current Crops & Lifecycle
             </h3>
             <Link href="/crops/new" className="text-xs font-bold text-primary-600 hover:underline">
               + Add Crop
@@ -293,7 +299,7 @@ export default function DashboardPage() {
         <div className="card p-5">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold font-display text-sm text-neutral-900 flex items-center gap-1.5">
-              <span>📋</span> Pending Farming Tasks
+              Pending Farming Tasks
             </h3>
             <Link href="/tasks" className="text-xs font-bold text-primary-600 hover:underline">
               View All
@@ -310,12 +316,12 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-2">
                     <span className="text-base">
                       {task.category === 'irrigation'
-                        ? '💧'
+                        ? 'W'
                         : task.category === 'fertilizer'
-                        ? '🧪'
+                        ? 'F'
                         : task.category === 'harvesting'
-                        ? '🌾'
-                        : '📌'}
+                        ? 'H'
+                        : 'T'}
                     </span>
                     <div>
                       <span className="font-bold text-neutral-800 block">{task.title}</span>
@@ -353,7 +359,7 @@ export default function DashboardPage() {
         <div className="card p-5">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-bold font-display text-sm text-neutral-900 flex items-center gap-1.5">
-              <span>🚜</span> Transport & Logistics Status
+              Transport & Logistics Status
             </h3>
             <Link href="/transport/book" className="text-xs font-bold text-transport-600 hover:underline">
               + Book New
@@ -378,10 +384,10 @@ export default function DashboardPage() {
                     </span>
                   </div>
                   <p className="text-[11px] text-neutral-500 truncate">
-                    📍 {trip.booking?.request?.pickup?.address} → 🏁 {trip.booking?.request?.destination?.address}
+                    {trip.booking?.request?.pickup?.address} &rarr; {trip.booking?.request?.destination?.address}
                   </p>
                   <div className="text-[10px] text-neutral-400">
-                    Live GPS Status: {trip.gpsTracking?.isEnabled ? '📡 Active' : 'Live GPS unavailable. Last status updated manually.'}
+                    GPS Status: {trip.gpsTracking?.isEnabled ? 'Active' : 'Live GPS unavailable. Last status updated manually.'}
                   </div>
                 </div>
               ))}

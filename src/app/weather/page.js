@@ -37,7 +37,7 @@ export default function WeatherPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-neutral-200">
         <div>
-          <h1 className="text-2xl font-bold font-display text-neutral-900">🌤️ Weather Intelligence</h1>
+          <h1 className="text-2xl font-bold font-display text-neutral-900">Weather Intelligence</h1>
           <p className="text-xs text-neutral-500 mt-0.5">
             Real-time agricultural weather forecasts, spray-window guidance, irrigation alerts, and rain protection
           </p>
@@ -101,44 +101,44 @@ export default function WeatherPage() {
           {/* Agricultural Field Guidance Banner */}
           <div className="card p-5 border-l-4 border-l-primary-500 space-y-3">
             <h3 className="font-bold text-sm text-neutral-900 font-display flex items-center gap-2">
-              <span>🌾</span> Agricultural Field Guidance for Today
+              Agricultural Field Guidance for Today
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
               <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-100 space-y-1">
                 <span className="font-bold text-neutral-800 flex items-center gap-1.5">
-                  <span>🚿</span> Spraying Conditions
+                  Spraying Conditions
                 </span>
                 <p className="text-neutral-600">
                   {weather.current.windSpeed.value > 25
-                    ? '⚠️ High wind speed. Spraying pesticides/fungicides is NOT recommended due to drift risk.'
+                    ? 'High wind speed. Spraying pesticides/fungicides is NOT recommended due to drift risk.'
                     : weather.current.rain.value > 0
-                    ? '🌧️ Rain detected. Postpone spray operations to prevent chemical wash-off.'
-                    : '✅ Favorable spraying window. Low wind and clear conditions.'}
+                    ? 'Rain detected. Postpone spray operations to prevent chemical wash-off.'
+                    : 'Favorable spraying window. Low wind and clear conditions.'}
                 </p>
               </div>
 
               <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-100 space-y-1">
                 <span className="font-bold text-neutral-800 flex items-center gap-1.5">
-                  <span>💧</span> Irrigation Considerations
+                  Irrigation Considerations
                 </span>
                 <p className="text-neutral-600">
                   {weather.current.rain.value > 5
-                    ? '🌧️ Sufficient precipitation received. Pause standard irrigation cycles to save water.'
+                    ? 'Sufficient precipitation received. Pause standard irrigation cycles to save water.'
                     : weather.current.temperature.value > 35
-                    ? '☀️ High evapotranspiration rate. Maintain adequate soil moisture for standing crops.'
-                    : '💧 Normal irrigation schedule recommended based on crop stage.'}
+                    ? 'High evapotranspiration rate. Maintain adequate soil moisture for standing crops.'
+                    : 'Normal irrigation schedule recommended based on crop stage.'}
                 </p>
               </div>
 
               <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-100 space-y-1">
                 <span className="font-bold text-neutral-800 flex items-center gap-1.5">
-                  <span>🚜</span> Transport & Harvesting
+                  Transport & Harvesting
                 </span>
                 <p className="text-neutral-600">
                   {weather.current.rain.value > 0
-                    ? '⚠️ Wet conditions. Ensure tarpaulin protection for open tractor trolleys during harvest transport.'
-                    : '✅ Excellent transport & harvest weather. Road and field traffic conditions optimal.'}
+                    ? 'Wet conditions. Ensure tarpaulin protection for open tractor trolleys during harvest transport.'
+                    : 'Excellent transport & harvest weather. Road and field traffic conditions optimal.'}
                 </p>
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function WeatherPage() {
                   </div>
                   {day.rainProbability !== undefined && (
                     <span className="text-[10px] text-blue-600 font-semibold block">
-                      💧 {day.rainProbability}%
+                      {day.rainProbability}%
                     </span>
                   )}
                 </div>
@@ -175,7 +175,7 @@ export default function WeatherPage() {
         </div>
       ) : (
         <div className="card p-12 text-center text-neutral-500 space-y-3">
-          <span className="text-4xl block">📡</span>
+          <span className="text-4xl block">--</span>
           <h3 className="font-bold text-base text-neutral-800">Live Weather Data Unavailable</h3>
           <p className="text-xs text-neutral-500 max-w-md mx-auto">
             Unable to connect to live weather feed at this moment. AgriMitra AI does not display fake or simulated weather data.

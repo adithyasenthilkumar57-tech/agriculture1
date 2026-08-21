@@ -11,7 +11,7 @@ export default function FarmsPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-neutral-200">
         <div>
-          <h1 className="text-2xl font-bold font-display text-neutral-900">🏡 My Farms</h1>
+          <h1 className="text-2xl font-bold font-display text-neutral-900">My Farms</h1>
           <p className="text-xs text-neutral-500 mt-0.5">
             Manage your registered agricultural land profiles, soil characteristics, and irrigation methods
           </p>
@@ -44,7 +44,7 @@ export default function FarmsPage() {
                     <div>
                       <h3 className="font-bold text-base text-neutral-900 font-display">{farm.name}</h3>
                       <p className="text-xs text-neutral-500">
-                        📍 {farm.location?.address || `${farm.location?.district}, ${farm.location?.state}`}
+                        {farm.location?.address || `${farm.location?.district}, ${farm.location?.state}`}
                       </p>
                     </div>
 

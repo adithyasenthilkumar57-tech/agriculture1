@@ -39,7 +39,7 @@ export default function CropsPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-neutral-200">
         <div>
-          <h1 className="text-2xl font-bold font-display text-neutral-900">🌱 Crops & Lifecycle Timeline</h1>
+          <h1 className="text-2xl font-bold font-display text-neutral-900">Crops & Lifecycle Timeline</h1>
           <p className="text-xs text-neutral-500 mt-0.5">
             Track real crop growth stages from planning to harvest and directly coordinate harvest logistics
           </p>
@@ -122,7 +122,7 @@ export default function CropsPage() {
                   disabled={crop.stage === 'harvest' || crop.stage === 'post_harvest'}
                   className="btn btn-ghost btn-sm text-[11px] py-1 px-2.5"
                 >
-                  Advance Stage ⏩
+                  Advance Stage
                 </button>
 
                 <div className="flex items-center gap-2">
@@ -130,14 +130,14 @@ export default function CropsPage() {
                     href={`/transport/book?crop=${encodeURIComponent(crop.name)}&quantity=${crop.estimatedYield?.value || 100}`}
                     className="btn btn-transport btn-sm text-[11px] py-1 px-2.5"
                   >
-                    🚜 Book Transport
+                    Book Transport
                   </Link>
 
                   <Link
                     href={`/ai?prompt=${encodeURIComponent(`I am growing ${crop.name} in stage ${crop.stage}. What are key management tips?`)}`}
                     className="btn btn-ai btn-sm text-[11px] py-1 px-2.5"
                   >
-                    🤖 Ask AI
+                    Ask AI
                   </Link>
                 </div>
               </div>

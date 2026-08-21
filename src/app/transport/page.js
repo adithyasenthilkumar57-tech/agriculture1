@@ -60,7 +60,7 @@ export default function TransportPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-neutral-200">
         <div>
-          <h1 className="text-2xl font-bold font-display text-neutral-900">🚜 Agricultural Logistics & Transport</h1>
+          <h1 className="text-2xl font-bold font-display text-neutral-900">Agricultural Logistics & Transport</h1>
           <p className="text-xs text-neutral-500 mt-0.5">
             Dedicated farm-to-market, farm-to-storage, and input transportation network
           </p>
@@ -69,7 +69,7 @@ export default function TransportPage() {
         <div className="flex items-center gap-2">
           {user?.role === 'transporter' && (
             <Link href="/transport/transporter" className="btn btn-ghost btn-sm text-xs">
-              🚚 Transporter Hub
+              Transporter Hub
             </Link>
           )}
           <Link href="/transport/book" className="btn btn-transport btn-sm text-xs font-bold">
@@ -144,11 +144,11 @@ export default function TransportPage() {
 
                 <div className="space-y-1.5 text-xs text-neutral-600 bg-neutral-50 p-3 rounded-xl border border-neutral-100">
                   <div className="flex items-center gap-2">
-                    <span className="text-neutral-400">📍 Pickup:</span>
+                    <span className="text-neutral-400">Pickup:</span>
                     <span className="font-medium text-neutral-800">{req.pickup?.address}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-neutral-400">🏁 Destination:</span>
+                    <span className="text-neutral-400">Destination:</span>
                     <span className="font-medium text-neutral-800">{req.destination?.address}</span>
                   </div>
                   <div className="flex items-center justify-between pt-1 border-t border-neutral-200 text-[11px]">
@@ -213,7 +213,7 @@ export default function TransportPage() {
                       {trip.transporter?.businessName || trip.transporter?.user?.name || 'Verified Transporter'}
                     </span>
                     <span className="text-[11px] text-neutral-500 block">
-                      📞 {trip.transporter?.user?.phone || 'Contact via platform'}
+                      Contact: {trip.transporter?.user?.phone || 'Contact via platform'}
                     </span>
                   </div>
 
@@ -233,7 +233,7 @@ export default function TransportPage() {
                       ₹{trip.booking?.agreedPrice?.value || '—'}
                     </span>
                     <span className="text-[10px] text-neutral-400 block">
-                      GPS: {trip.gpsTracking?.isEnabled ? '📡 Live Tracking Active' : 'Live GPS unavailable. Status updated manually.'}
+                      GPS: {trip.gpsTracking?.isEnabled ? 'Live Tracking Active' : 'Live GPS unavailable. Status updated manually.'}
                     </span>
                   </div>
                 </div>
@@ -264,7 +264,7 @@ export default function TransportPage() {
                     </span>
                   </div>
                   <p className="text-neutral-500">
-                    📍 {trip.booking?.request?.pickup?.address} → 🏁 {trip.booking?.request?.destination?.address}
+                    {trip.booking?.request?.pickup?.address} &rarr; {trip.booking?.request?.destination?.address}
                   </p>
                   <p className="text-neutral-400 text-[11px]">
                     Completed on: {new Date(trip.actualDeliveryTime || trip.updatedAt).toLocaleDateString()} • Price: ₹{trip.booking?.agreedPrice?.value}
@@ -275,7 +275,7 @@ export default function TransportPage() {
                   href={`/transport/book?cargoName=${encodeURIComponent(trip.booking?.request?.cargo?.name || '')}`}
                   className="btn btn-outline btn-sm text-xs font-bold self-start sm:self-center"
                 >
-                  Book Similar Transport 🔄
+                  Book Similar Transport
                 </Link>
               </div>
             ))}
